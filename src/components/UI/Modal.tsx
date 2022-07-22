@@ -3,7 +3,10 @@ import { createPortal } from 'react-dom';
 
 const Backdrop = (props: any) => {
   return (
-    <div className="bg-black opacity-75 min-h-screen w-screen fixed"></div>
+    <div
+      className="bg-black opacity-75 min-h-screen w-screen fixed"
+      onClick={props.onClose}
+    ></div>
   );
 };
 const ModalOverlay = (props: PropsWithChildren) => {
@@ -18,10 +21,13 @@ const ModalOverlay = (props: PropsWithChildren) => {
 
 const portalElement = document.getElementById('overlays');
 
-const Modal = (props: PropsWithChildren) => {
+const Modal = (props: PropsWithChildren & { onClose: any }) => {
   return (
     <>
-      {createPortal(<Backdrop />, portalElement as HTMLDivElement)}
+      {createPortal(
+        <Backdrop onClose={props.onClose} />,
+        portalElement as HTMLDivElement
+      )}
       {createPortal(
         <ModalOverlay>{props.children}</ModalOverlay>,
         portalElement as HTMLDivElement

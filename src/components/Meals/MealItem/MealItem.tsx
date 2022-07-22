@@ -11,14 +11,11 @@ interface MealItemI {
 
 export const MealItem: FC<MealItemI> = ({ id, name, description, price }) => {
   const cartCtx = useContext(CartContext);
-  const humanPrice = (parseInt(price.toString()) / 100).toLocaleString(
-    'en-US',
-    {
-      currency: 'USD',
-      minimumSignificantDigits: 2,
-      style: 'currency'
-    }
-  );
+  const humanPrice = parseFloat(price.toString()).toLocaleString('en-US', {
+    currency: 'USD',
+    minimumSignificantDigits: 2,
+    style: 'currency'
+  });
 
   const onAddToCartHandler = (amount: number) => {
     cartCtx.addItem({
